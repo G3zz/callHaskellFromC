@@ -1,5 +1,5 @@
 This repository demonstrates how to compile and link a Haskell source
-with a C source to produce a native binary. More specifically, a Haskell
+with a C source to produce a dynamically linked native binary. More specifically, a Haskell
 method exported via the Foreign Function Interface (FFI) is compiled
 into a dynamic shared library that is called from a main method written in C.
 GHC is used to compile both the Haskell and C sources, producing a binary
