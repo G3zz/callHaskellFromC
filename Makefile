@@ -32,5 +32,5 @@ link-hs: compile-hs
 
 .PHONY: clean
 clean:	
-	rm -f $(STUBDIR)/* *.hi *.o a.out *.so $(BINARY_NAME)
+	rm -rf $(STUBDIR) *.hi *.o a.out *.so $(BINARY_NAME)
 	$(shell docker rmi alpine-haskell-ffi:callHaskellFromC 2> /dev/null)
