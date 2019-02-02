@@ -73,7 +73,7 @@ Finally, this results in a binary file, `call`, which we run with the following 
 
 Running the binary results in a runtime error - the shared library cannot be found again. However,
 this time it is the dynamic linker complaining that it cannot find the shared library.
-This can be solved by moving the shared library to a common location, e.g. `/usr/lib` or /usr/local/lib`,
+This can be solved by moving the shared library to a common location, e.g. `/usr/lib` or `/usr/local/lib`,
 adding the path of the shared library to the `LD_LIBRARY_PATH` environment variable, or using the
 `rpath` mechanism (see [5] for a summary of each). In this example, the `rpath` mechanism is used,
 via the `-Optl` (linker option) flag:
