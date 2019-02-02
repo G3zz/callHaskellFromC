@@ -22,7 +22,7 @@ run it with `docker run --rm alpine-haskell-ffi:callHaskellFromC`.
 
 The command to compile the Haskell source appropriately is as follows:
 
-	`ghc --make -dynamic -shared -fPIC -stubdir ghc_stubs -o libCallee.so Callee.hs`
+	ghc --make -dynamic -shared -fPIC -stubdir ghc_stubs -o libCallee.so Callee.hs
 
 This instructs GHC to compile the Haskell source containing FFI exports, `Callee.hs` into 
 a dynamically shared library. Of all the flags, `-dynamic` and `-shared` are self explanatory. 
@@ -35,17 +35,17 @@ we are creating a shared library) into the `ghc_stubs` subdirectory [2].
 The command to compile the C source to produce a binary linking with the Haskell shared library
 is as follows:
 
-	`ghc -Ighc_stubs -no-hs-main -lCallee -L$(pwd) -Optl-Wl,-rpath=. caller.c -o call`
+	ghc -Ighc_stubs -no-hs-main -lCallee -L$(pwd) -Optl-Wl,-rpath=. caller.c -o call
 
 This command is easiest to explain by working through an example. Consider the following command:
 
-	`ghc caller.c -o call`
+	ghc caller.c -o call
 
 This results in a compilation error since ghc cannot find the header file `Callee_stub.h`.
 Passing  the directory containing *stub.h to gcc with the `-I` flag ensures
 that it passes compilation: 
 
-	`ghc -Ighc_stubs caller.c -o call`
+	ghc -Ighc_stubs caller.c -o call
 			
 However, this results in errors at the linking stage. Firstly, ghc complains that there are two
 mains defined - one in Haskell and one in C. Secondly, GHC cannot find the definition of the
@@ -59,16 +59,16 @@ all UNIX shared libraries begin with `lib` and end with `.so`. For succinctness,
 are discarded when using the `-l` flag. To refer to a shared library `libfoo.so`, one would therefore
 pass `-lfoo` to the compiler [4]. The example now becomes:
 
-	`ghc -Ighc_stubs -no-hs-main -lCallee caller.c -o call`
+	ghc -Ighc_stubs -no-hs-main -lCallee caller.c -o call
 			
 Although the linker is now aware of the shared library, it does not know where to find it, since it
 is not in a standard location. The `-L` flag allows the location of a shared library to be given:
 
-	`ghc -Ighc_stubs -no-hs-main -lCallee -L$(pwd) caller.c -o call`
+	ghc -Ighc_stubs -no-hs-main -lCallee -L$(pwd) caller.c -o call
 
 Finally, this results in a binary file, `call`, which we run with the following command:
 
-	`./call`
+	./call
 
 Running the binary results in a runtime error - the shared library cannot be found again. However,
 this time it is the dynamic linker complaining that it cannot find the shared library.
@@ -77,7 +77,7 @@ adding the path of the shared library to the `LD_LIBRARY_PATH` environment varia
 `rpath` mechanism (see [5] for a summary of each). In this example, the `rpath` mechanism is used,
 via the `-Optl` (linker option) flag:
 
-	`ghc -Ighc_stubs -no-hs-main -lCallee -L$(pwd) -Optl-Wl,-rpath=. caller.c -o call`
+	ghc -Ighc_stubs -no-hs-main -lCallee -L$(pwd) -Optl-Wl,-rpath=. caller.c -o call
 
 And finally, the binary runs as expected:
 
