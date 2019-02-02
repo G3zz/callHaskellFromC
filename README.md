@@ -18,7 +18,7 @@ run it with `docker run --rm alpine-haskell-ffi:callHaskellFromC`.
 
 # Explanation
 
-## Haskell:
+## Haskell
 
 The command to compile the Haskell source appropriately is as follows:
 
@@ -31,7 +31,7 @@ in memory [1]. This is required since the location of the library in memory may 
 The `-stubdir` flag directs GHC to place all FFI stubs it creates (only *.h files in this case, since
 we are creating a shared library) into the `ghc_stubs` subdirectory [2].
 
-## C:
+## C
 The command to compile the C source to produce a binary linking with the Haskell shared library
 is as follows:
 
@@ -86,7 +86,11 @@ And finally, the binary runs as expected:
 # References
 
 [1] https://downloads.haskell.org/~ghc/7.6.3/docs/html/users_guide/using-shared-libs.html
+
 [2] https://downloads.haskell.org/~ghc/7.6.3/docs/html/users_guide/separate-compilation.html#options-output
+
 [3] https://downloads.haskell.org/~ghc/7.6.3/docs/html/users_guide/ffi-ghc.html#ffi-library
+
 [4] https://downloads.haskell.org/~ghc/7.6.3/docs/html/users_guide/options-phases.html#options-linker
+
 [5] https://www.cprogramming.com/tutorial/shared-libraries-linux-gcc.html
