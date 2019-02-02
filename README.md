@@ -13,8 +13,9 @@ Build the project with `make` and run the example with `./Callee`.
 
 ### With Docker
 
-Create the image with `make alpine-haskell-ffi:callHaskellFromC .` and
+Create the image with `docker build -t alpine-haskell-ffi:callHaskellFromC .` and
 run it with `docker run --rm alpine-haskell-ffi:callHaskellFromC`.
+Alternatively, if (g)make is installed, just run `make container`.
 
 # Explanation
 
